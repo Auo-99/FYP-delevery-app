@@ -1,0 +1,4 @@
+#Mon Nov 14 15:13:03 EET 2022
+base.0=C\:\\Users\\Au_09\\Desktop\\DeleveryApp\\delevery_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
