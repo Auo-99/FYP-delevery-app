@@ -118,12 +118,45 @@ class CartController extends GetxController {
 
   set setCart(List<CartModel> items){
     storageItems = items;
-    print("length of cart items ${storageItems.length}");
+    //print("length of cart items ${storageItems.length}");
 
     for(int i=0;i<storageItems.length; i++){
       _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
     }
   }
+
+  void addToCartHistory(){
+    cartRepo.addToCartHistoryList();
+    clear();
+  }
+
+  void clear(){
+    _items={};
+    update();
+  }
+
+  List<CartModel> getCartHistoryList(){
+    return cartRepo.getCartHistoryList();
+  }
+
+  set setItems(Map<int, CartModel> setItems){
+    //when press in One More in cart history page
+    //we will pass the items in that order to cart page
+    //pass moreOreder map to _items map
+    _items = {};//make sure the map is empty
+    _items = setItems;
+  }
+
+  void addToCartList(){
+    cartRepo.addToCartList(getItems);
+    update();
+  }
+
+  void clearCartHistory(){
+    cartRepo.clearCartHistory();
+    update();
+  }
+
 }
 
 //1-> create repo

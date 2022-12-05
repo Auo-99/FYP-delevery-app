@@ -1,7 +1,11 @@
+import 'package:delevery_app/pages/auth/sign_up_page.dart';
+import 'package:delevery_app/pages/cart/cart_history.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
+import '../account/account_page.dart';
+import '../auth/sign_in_page.dart';
 import 'home_page_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,9 +19,9 @@ class _HomePageState extends State<HomePage> {
   var _selectedIndex = 0;
   var pages = [
     HomePageBody(),
-    Container(child: Center(child: Text("Next Page"),),),
-    Container(child: Center(child: Text("Next next Page"),),),
-    Container(child: Center(child: Text("Next next next Page"),),),
+    const Center(child: Text("History Page"),),
+    CartHistory(),
+    AccountPage(),
   ];
 
   onTapNav(int index){
