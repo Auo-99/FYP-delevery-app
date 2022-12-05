@@ -1,0 +1,371 @@
+@startuml
+set namespaceSeparator ::
+
+class "delevery_app::widget::app_column.dart::AppColumn" {
+  +String text
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::widget::app_column.dart::AppColumn"
+
+class "delevery_app::widget::big_text.dart::BigText" {
+  +String text
+  +Color? color
+  +double size
+  +TextOverflow overFlow
+  +Widget build()
+}
+
+"delevery_app::widget::big_text.dart::BigText" o-- "dart::ui::Color"
+"delevery_app::widget::big_text.dart::BigText" o-- "flutter::src::painting::text_painter.dart::TextOverflow"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::widget::big_text.dart::BigText"
+
+class "delevery_app::widget::app_icon.dart::AppIconWidget" {
+  +IconData icon
+  +Color iconColor
+  +Color bgColor
+  +double size
+  +double iconSize
+  +Widget build()
+}
+
+"delevery_app::widget::app_icon.dart::AppIconWidget" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"delevery_app::widget::app_icon.dart::AppIconWidget" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::widget::app_icon.dart::AppIconWidget"
+
+class "delevery_app::widget::icon_text_widget.dart::IconText" {
+  +String text
+  +Color? color
+  +IconData icon
+  +Widget build()
+}
+
+"delevery_app::widget::icon_text_widget.dart::IconText" o-- "dart::ui::Color"
+"delevery_app::widget::icon_text_widget.dart::IconText" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::widget::icon_text_widget.dart::IconText"
+
+class "delevery_app::widget::expandabe_text_widget.dart::ExpandableTextWidget" {
+  +String text
+  +State<ExpandableTextWidget> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "delevery_app::widget::expandabe_text_widget.dart::ExpandableTextWidget"
+
+class "delevery_app::widget::expandabe_text_widget.dart::_ExpandableTextWidgetState" {
+  +String firstHalf
+  +String secondHalf
+  +bool hiddenText
+  +double textHeight
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "delevery_app::widget::expandabe_text_widget.dart::_ExpandableTextWidgetState"
+
+class "delevery_app::widget::small_text.dart::SmallText" {
+  +String text
+  +Color? color
+  +double? size
+  +double? height
+  +Widget build()
+}
+
+"delevery_app::widget::small_text.dart::SmallText" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::widget::small_text.dart::SmallText"
+
+class "delevery_app::utils::app_constants.dart::AppConstants" {
+  {static} +String APP_NAME
+  {static} +int APP_VERSION
+  {static} +String BASE_URL
+  {static} +String POPULAR_PRODUCTS_URI
+  {static} +String RECOMMENDED_PRODUCTS_URI
+  {static} +String UPLOADE_URI
+  {static} +String TOKEN
+  {static} +String CART_LIST
+  {static} +String CART_HISTORY_LIST
+}
+
+class "delevery_app::utils::colors.dart::AppColors" {
+  {static} +Color textColor
+  {static} +Color mainColor
+  {static} +Color iconColor1
+  {static} +Color iconColor2
+  {static} +Color paraColor
+  {static} +Color buttonBackgroundColor
+  {static} +Color signColor
+  {static} +Color titleColor
+  {static} +Color mainBlackColor
+  {static} +Color yellowColor
+}
+
+"delevery_app::utils::colors.dart::AppColors" o-- "dart::ui::Color"
+
+class "delevery_app::utils::dimension.dart::Dimention" {
+  {static} +double screehHeight
+  {static} +double screehWidth
+  {static} +double pageView
+  {static} +double pageViewContainer
+  {static} +double pageViewContainerText
+  {static} +double heigt10
+  {static} +double heigt15
+  {static} +double heigt20
+  {static} +double heigt30
+  {static} +double heigt45
+  {static} +double width10
+  {static} +double width15
+  {static} +double width20
+  {static} +double width30
+  {static} +double width45
+  {static} +double font16
+  {static} +double font20
+  {static} +double font26
+  {static} +double icon15
+  {static} +double icon24
+  {static} +double listViewImgSize
+  {static} +double listViewContainerSize
+  {static} +double PageInfoImgSize
+  {static} +double bottomNavigationInfoPage
+}
+
+class "delevery_app::models::cart_models.dart::CartModel" {
+  +int? id
+  +String? name
+  +int? price
+  +String? img
+  +int? quantity
+  +bool? isExist
+  +String? time
+  +ProductModel? product
+  +Map<String, dynamic> toJson()
+}
+
+"delevery_app::models::cart_models.dart::CartModel" o-- "delevery_app::models::products_model.dart::ProductModel"
+
+class "delevery_app::models::products_model.dart::Product" {
+  -int? _totalSize
+  -int? _typeId
+  -int? _offset
+  -List<ProductModel> _products
+  +List<ProductModel> products
+}
+
+class "delevery_app::models::products_model.dart::ProductModel" {
+  +int? id
+  +String? name
+  +String? description
+  +int? price
+  +int? stars
+  +String? img
+  +String? location
+  +String? createdAt
+  +String? updatedAt
+  +int? typeId
+  +Map<String, dynamic> toJson()
+}
+
+class "delevery_app::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::main.dart::MyApp"
+
+class "delevery_app::controllers::popular_product_controller.dart::PopularProductController" {
+  +PopularProductRepo popularProductRepo
+  -List<dynamic> _popularProductList
+  -bool _isLoaded
+  +bool isIncrement
+  -int _quantity
+  -int _inCartItems
+  -CartController _cart
+  +List<dynamic> popularProductList
+  +bool isLoaded
+  +int quantity
+  +int inCartItems
+  +int totalItems
+  +List<CartModel> getItems
+  +Future<void> getPopularProductList()
+  +void setQuantity()
+  +int checkQuantity()
+  +void initProduct()
+  +void addItem()
+}
+
+"delevery_app::controllers::popular_product_controller.dart::PopularProductController" o-- "delevery_app::data::repository::popular_product_repo.dart::PopularProductRepo"
+"delevery_app::controllers::popular_product_controller.dart::PopularProductController" o-- "delevery_app::controllers::cart_controller.dart::CartController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "delevery_app::controllers::popular_product_controller.dart::PopularProductController"
+
+class "delevery_app::controllers::cart_controller.dart::CartController" {
+  +CartRepo cartRepo
+  -Map<int, CartModel> _items
+  +List<CartModel> storageItems
+  +Map<int, CartModel> items
+  +int totalItems
+  +List<CartModel> getItems
+  +int getAmount
+  +List<CartModel> setCart
+  +void addItem()
+  +bool isExist()
+  +int getQuantity()
+  +List<CartModel> getCartData()
+  +void addToCartHistory()
+  +void clear()
+}
+
+"delevery_app::controllers::cart_controller.dart::CartController" o-- "delevery_app::data::repository::cart_repo.dart::CartRepo"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "delevery_app::controllers::cart_controller.dart::CartController"
+
+class "delevery_app::controllers::recommended_product_controller.dart::RecommendedProductController" {
+  +RecommendedProductRepo recommendedProductRepo
+  -List<dynamic> _recommendedProductList
+  -bool _isLoaded
+  +List<dynamic> recommendedProductList
+  +bool isLoaded
+  +Future<void> getRecommendedProductList()
+}
+
+"delevery_app::controllers::recommended_product_controller.dart::RecommendedProductController" o-- "delevery_app::data::repository::recommended_product_repo.dart::RecommendedProductRepo"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "delevery_app::controllers::recommended_product_controller.dart::RecommendedProductController"
+
+class "delevery_app::data::repository::recommended_product_repo.dart::RecommendedProductRepo" {
+  +ApiClient apiClient
+  +Future<Response<dynamic>> getRecommendedProductList()
+}
+
+"delevery_app::data::repository::recommended_product_repo.dart::RecommendedProductRepo" o-- "delevery_app::data::api::api_client.dart::ApiClient"
+"get::get_state_manager::src::rx_flutter::rx_disposable.dart::GetxService" <|-- "delevery_app::data::repository::recommended_product_repo.dart::RecommendedProductRepo"
+
+class "delevery_app::data::repository::cart_repo.dart::CartRepo" {
+  +SharedPreferences sharedPreferences
+  +List<String> cart
+  +List<String> cartHistory
+  +void addToCartList()
+  +List<CartModel> getCartList()
+  +void addToCartHistoryList()
+  +List<CartModel> getCartHistoryList()
+  +void removeCart()
+}
+
+"delevery_app::data::repository::cart_repo.dart::CartRepo" o-- "shared_preferences::shared_preferences.dart::SharedPreferences"
+
+class "delevery_app::data::repository::popular_product_repo.dart::PopularProductRepo" {
+  +ApiClient apiClient
+  +Future<Response<dynamic>> getPopularProductList()
+}
+
+"delevery_app::data::repository::popular_product_repo.dart::PopularProductRepo" o-- "delevery_app::data::api::api_client.dart::ApiClient"
+"get::get_state_manager::src::rx_flutter::rx_disposable.dart::GetxService" <|-- "delevery_app::data::repository::popular_product_repo.dart::PopularProductRepo"
+
+class "delevery_app::data::api::api_client.dart::ApiClient" {
+  +String token
+  +String appBaseUrl
+  -Map<String, String> _mainHeader
+  +Future<Response<dynamic>> getData()
+}
+
+"get::get_connect::connect.dart::GetConnect" <|-- "delevery_app::data::api::api_client.dart::ApiClient"
+"get::get_state_manager::src::rx_flutter::rx_disposable.dart::GetxService" <|-- "delevery_app::data::api::api_client.dart::ApiClient"
+
+class "delevery_app::pages::Home::home_page_body.dart::HomePageBody" {
+  +State<HomePageBody> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "delevery_app::pages::Home::home_page_body.dart::HomePageBody"
+
+class "delevery_app::pages::Home::home_page_body.dart::_HomePageBodyState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "delevery_app::pages::Home::home_page_body.dart::_HomePageBodyState"
+
+class "delevery_app::pages::Home::home_page_slider.dart::HomePageSlider" {
+  +State<HomePageSlider> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "delevery_app::pages::Home::home_page_slider.dart::HomePageSlider"
+
+class "delevery_app::pages::Home::home_page_slider.dart::_HomePageSliderState" {
+  +PageController pController
+  -double _currPageValue
+  -double _scaleFactor
+  -double _height
+  +void initState()
+  +void dispose()
+  +Widget build()
+  -Widget _buildPageItem()
+}
+
+"delevery_app::pages::Home::home_page_slider.dart::_HomePageSliderState" o-- "flutter::src::widgets::page_view.dart::PageController"
+"flutter::src::widgets::framework.dart::State" <|-- "delevery_app::pages::Home::home_page_slider.dart::_HomePageSliderState"
+
+class "delevery_app::pages::Home::home_page.dart::HomePage" {
+  +State<HomePage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "delevery_app::pages::Home::home_page.dart::HomePage"
+
+class "delevery_app::pages::Home::home_page.dart::_HomePageState" {
+  -int _selectedIndex
+  +List<Widget> pages
+  +dynamic onTapNav()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "delevery_app::pages::Home::home_page.dart::_HomePageState"
+
+class "delevery_app::pages::splash::splash_page.dart::SplashScreen" {
+  +State<SplashScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "delevery_app::pages::splash::splash_page.dart::SplashScreen"
+
+class "delevery_app::pages::splash::splash_page.dart::_SplashScreenState" {
+  +Animation<double> animation
+  +AnimationController controller
+  -Future<void> _loadResources()
+  +void initState()
+  +Widget build()
+}
+
+"delevery_app::pages::splash::splash_page.dart::_SplashScreenState" o-- "flutter::src::animation::animation.dart::Animation<double>"
+"delevery_app::pages::splash::splash_page.dart::_SplashScreenState" o-- "flutter::src::animation::animation_controller.dart::AnimationController"
+"flutter::src::widgets::framework.dart::State" <|-- "delevery_app::pages::splash::splash_page.dart::_SplashScreenState"
+"flutter::src::widgets::ticker_provider.dart::TickerProviderStateMixin" <|-- "delevery_app::pages::splash::splash_page.dart::_SplashScreenState"
+
+class "delevery_app::pages::Food::recommended_food_detail.dart::RecommendedFoodDetail" {
+  +int pageId
+  +String page
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::pages::Food::recommended_food_detail.dart::RecommendedFoodDetail"
+
+class "delevery_app::pages::Food::popular_food_detail.dart::PopularFoodDetail" {
+  +int pageId
+  +String page
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::pages::Food::popular_food_detail.dart::PopularFoodDetail"
+
+class "delevery_app::pages::cart::cart_page.dart::CartPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "delevery_app::pages::cart::cart_page.dart::CartPage"
+
+class "delevery_app::routes::rout_helper.dart::RouteHelper" {
+  {static} +String initial
+  {static} +String splash
+  {static} +String popularFood
+  {static} +String recommendedFood
+  {static} +String cartPage
+  {static} +List<GetPage<dynamic>> routes
+  {static} +String getInitial()
+  {static} +String getSplash()
+  {static} +String getPopularFood()
+  {static} +String getRecommendedFood()
+  {static} +String getCartPage()
+}
+
+
+@enduml
